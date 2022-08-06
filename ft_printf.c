@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 00:38:11 by romachad          #+#    #+#             */
-/*   Updated: 2022/08/06 06:28:28 by romachad         ###   ########.fr       */
+/*   Updated: 2022/08/06 06:51:47 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,30 +63,27 @@ static char	*replace_value(char *str, size_t *i)
 
 static char	*read_str(char *str, size_t *pos)
 {
-//	size_t	i;
-
-//	i = 0;
 	while (str[*pos])
 	{
 		while (str[*pos] && str[*pos] != '%')
 			*pos += 1;
 		if (str[*pos] == '%')
 		{
-			if (str[*pos + 1] == 'c' || str[*pos + 1] == 's' || str[*pos + 1] == 'p')
+			if (ft_strchr("cspdiuxX%", str[*pos + 1]))
+				str = replace_value(str, pos);
+			/*if (str[*pos + 1] == 'c' || str[*pos + 1] == 's' || str[*pos + 1] == 'p')
 				str = replace_value(str, pos);
 			else if (str[*pos + 1] == 'd' || str[*pos + 1] == 'i' || str[*pos + 1] == 'u')
 				str = replace_value(str, pos);
 			else if (str[*pos + 1] == 'x' || str[*pos + 1] == 'X' || str[*pos + 1] == '%')
-				str = replace_value(str, pos);
+				str = replace_value(str, pos);*/
 		}
-		/*if (str[pos] == '%') Removido com a mudanca do *pos
-			pos++;*/
 	}
 	return (str);
 }
 
 #include <stdio.h>
-int	ft_printf(const char *s)
+int	ft_printf(const char *s, ...)
 {
 	size_t	size;
 	char	*str;
@@ -95,33 +92,12 @@ int	ft_printf(const char *s)
 
 	posicao = 0;
 	pos = &posicao;
-	/*char	*p;
-	int	t_pct;*/
-
 	size =  ft_strlen(s);
 	if (size == 0)
 		return (0);
 	str = ft_strdup(s);
 	if (str == 0)
 		return (0);
-	/*t_pct = 0;
-	t_pct = ft_count_char(str, '%');
-	t_pct = check_allowed(str, t_pct);
-	if (t_pct == -1)
-	{
-		free(str);
-		ft_putstr("Invalid qtd of pct signs!");
-		return (-1);
-	}
-	//printf("total de %d sinais de pct!\n", t_pct);
-	size = 0;
-	while (t_pct)
-	{
-		p = strchr(str, '%', size);
-		str = replace_value(str, p);
-		size++;
-		t_pct--;
-	}*/
 	str = read_str(str, pos);
 	//ft_putstr(str);
 	printf("%s", str);
