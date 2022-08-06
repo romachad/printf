@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 00:38:11 by romachad          #+#    #+#             */
-/*   Updated: 2022/08/03 04:41:00 by romachad         ###   ########.fr       */
+/*   Updated: 2022/08/06 06:28:28 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,21 @@ static char	*read_value(char *str, size_t i)
 	return (result);
 }
 
-static char	*replace_value(char *str, size_t i)
+static char	*replace_value(char *str, size_t *i)
 {
 	char	*partial_str;
 	char	*variable;
+	size_t	swap;
 
-	partial_str = ft_substr(str, 0, i);
+	partial_str = ft_substr(str, 0, *i);
 	//funcao de ler qual eh a var e devolver uma str com resultado da leitura
-	variable = read_value(str, i+1); //colocar seguranca de alocacao?
+	variable = read_value(str, *i+1); //colocar seguranca de alocacao?
+	swap = ft_strlen(variable);
 	partial_str = ft_strjoin2(partial_str, variable);
 	free(variable);
 	//variable vai receber o restantante do str a partir do %+1 encontrado:
-	variable = ft_substr(str, i+2, ft_strlen(str) - (i + 2));
-	//printf("\n\nTHIS IS THE VARIABLE BEFORE THE JOIN: %s",variable);
+	variable = ft_substr(str, *i+2, ft_strlen(str) - (*i + 2));
+	*i = ft_strlen(partial_str);
 	//juntar o partial str com o variable
 	partial_str = ft_strjoin2(partial_str, variable);
 	free(variable);
@@ -59,26 +61,26 @@ static char	*replace_value(char *str, size_t i)
 	return (partial_str);
 }
 
-static char	*read_str(char *str)
+static char	*read_str(char *str, size_t *pos)
 {
-	size_t	i;
+//	size_t	i;
 
-	i = 0;
-	while (str[i])
+//	i = 0;
+	while (str[*pos])
 	{
-		while (str[i] && str[i] != '%')
-			i++;
-		if (str[i] == '%')
+		while (str[*pos] && str[*pos] != '%')
+			*pos += 1;
+		if (str[*pos] == '%')
 		{
-			if (str[i + 1] == 'c' || str[i + 1] == 's' || str[i + 1] == 'p')
-				str = replace_value(str, i);
-			else if (str[i + 1] == 'd' || str[i + 1] == 'i' || str[i + 1] == 'u')
-				str = replace_value(str, i);
-			else if (str[i + 1] == 'x' || str[i + 1] == 'X' || str[i + 1] == '%')
-				str = replace_value(str, i);
+			if (str[*pos + 1] == 'c' || str[*pos + 1] == 's' || str[*pos + 1] == 'p')
+				str = replace_value(str, pos);
+			else if (str[*pos + 1] == 'd' || str[*pos + 1] == 'i' || str[*pos + 1] == 'u')
+				str = replace_value(str, pos);
+			else if (str[*pos + 1] == 'x' || str[*pos + 1] == 'X' || str[*pos + 1] == '%')
+				str = replace_value(str, pos);
 		}
-		if (str[i] == '%')
-			i++;
+		/*if (str[pos] == '%') Removido com a mudanca do *pos
+			pos++;*/
 	}
 	return (str);
 }
@@ -88,6 +90,11 @@ int	ft_printf(const char *s)
 {
 	size_t	size;
 	char	*str;
+	size_t	*pos;
+	size_t	posicao;
+
+	posicao = 0;
+	pos = &posicao;
 	/*char	*p;
 	int	t_pct;*/
 
@@ -115,7 +122,7 @@ int	ft_printf(const char *s)
 		size++;
 		t_pct--;
 	}*/
-	str = read_str(str);
+	str = read_str(str, pos);
 	//ft_putstr(str);
 	printf("%s", str);
 	size = ft_strlen(str);
