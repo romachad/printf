@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 00:32:19 by romachad          #+#    #+#             */
-/*   Updated: 2022/08/06 06:34:11 by romachad         ###   ########.fr       */
+/*   Updated: 2022/08/06 07:26:46 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ char	*ft_strchr_n(const char *s, int c, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin2(char *s1, char const *s2);
 void	*ft_calloc(size_t nmemb, size_t size);
+char	*char_type(va_list ptr);
 
 #endif

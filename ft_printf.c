@@ -6,20 +6,27 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 00:38:11 by romachad          #+#    #+#             */
-/*   Updated: 2022/08/06 06:51:47 by romachad         ###   ########.fr       */
+/*   Updated: 2022/08/06 08:22:12 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 #include <stdio.h>
-static char	*read_value(char *str, size_t i)
+static char	*read_value(char *str, size_t i, va_list ptr)
 {
 	char	c;
 	char	*result;
 
 	c = str[i];
-	if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i')
+	if (c == 'c')
+		result = char_type(ptr);
+	else if (c == 's')
+	{
+		result = ft_strdup(va_arg(ptr, char *));
+		//result = string_type(ptr);
+	}
+	else if (c == 'p' || c == 'd' || c == 'i')
 	{
 		result = malloc(2 * sizeof(char));
 		result[0] = '%';
@@ -33,13 +40,14 @@ static char	*read_value(char *str, size_t i)
 	}
 	else
 	{
+		//printf("\nentrou em nada!\n");
 		result = malloc (sizeof(char));
 		result[0] = 0;
 	}
 	return (result);
 }
 
-static char	*replace_value(char *str, size_t *i)
+static char	*replace_value(char *str, size_t *i, va_list ptr)
 {
 	char	*partial_str;
 	char	*variable;
@@ -47,12 +55,12 @@ static char	*replace_value(char *str, size_t *i)
 
 	partial_str = ft_substr(str, 0, *i);
 	//funcao de ler qual eh a var e devolver uma str com resultado da leitura
-	variable = read_value(str, *i+1); //colocar seguranca de alocacao?
+	variable = read_value(str, *i + 1, ptr); //colocar seguranca de alocacao?
 	swap = ft_strlen(variable);
 	partial_str = ft_strjoin2(partial_str, variable);
 	free(variable);
 	//variable vai receber o restantante do str a partir do %+1 encontrado:
-	variable = ft_substr(str, *i+2, ft_strlen(str) - (*i + 2));
+	variable = ft_substr(str, *i + 2, ft_strlen(str) - (*i + 2));
 	*i = ft_strlen(partial_str);
 	//juntar o partial str com o variable
 	partial_str = ft_strjoin2(partial_str, variable);
@@ -61,7 +69,7 @@ static char	*replace_value(char *str, size_t *i)
 	return (partial_str);
 }
 
-static char	*read_str(char *str, size_t *pos)
+static char	*read_str(char *str, size_t *pos, va_list ptr)
 {
 	while (str[*pos])
 	{
@@ -69,14 +77,12 @@ static char	*read_str(char *str, size_t *pos)
 			*pos += 1;
 		if (str[*pos] == '%')
 		{
+			//printf("\nvalor do pos antes do replace: %zu\n", *pos);
 			if (ft_strchr("cspdiuxX%", str[*pos + 1]))
-				str = replace_value(str, pos);
-			/*if (str[*pos + 1] == 'c' || str[*pos + 1] == 's' || str[*pos + 1] == 'p')
-				str = replace_value(str, pos);
-			else if (str[*pos + 1] == 'd' || str[*pos + 1] == 'i' || str[*pos + 1] == 'u')
-				str = replace_value(str, pos);
-			else if (str[*pos + 1] == 'x' || str[*pos + 1] == 'X' || str[*pos + 1] == '%')
-				str = replace_value(str, pos);*/
+				str = replace_value(str, pos, ptr);
+			else
+				*pos += 1;
+			//printf("\nvalor do pos pos replace: %zu\n", *pos);
 		}
 	}
 	return (str);
@@ -85,6 +91,7 @@ static char	*read_str(char *str, size_t *pos)
 #include <stdio.h>
 int	ft_printf(const char *s, ...)
 {
+	va_list	ptr;
 	size_t	size;
 	char	*str;
 	size_t	*pos;
@@ -98,10 +105,12 @@ int	ft_printf(const char *s, ...)
 	str = ft_strdup(s);
 	if (str == 0)
 		return (0);
-	str = read_str(str, pos);
+	va_start(ptr, s);
+	str = read_str(str, pos, ptr);
 	//ft_putstr(str);
 	printf("%s", str);
 	size = ft_strlen(str);
+	va_end(ptr);
 	free(str);
 	return (size);
 }
