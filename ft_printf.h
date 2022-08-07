@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 00:32:19 by romachad          #+#    #+#             */
-/*   Updated: 2022/08/07 00:34:16 by romachad         ###   ########.fr       */
+/*   Updated: 2022/08/07 04:07:29 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	*ft_calloc(size_t nmemb, size_t size);
 char	*char_type(va_list ptr);
 char	*ft_itoa(int n);
 char	*ft_utoa(unsigned int n);
+char	*hex_str(unsigned long int n, int flag);
 
 #endif

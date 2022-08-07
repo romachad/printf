@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 00:38:11 by romachad          #+#    #+#             */
-/*   Updated: 2022/08/07 00:36:27 by romachad         ###   ########.fr       */
+/*   Updated: 2022/08/07 05:26:28 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,30 @@ static char	*read_value(char *str, size_t i, va_list ptr)
 	if (c == 'c')
 		result = char_type(ptr);
 	else if (c == 's')
-	{
 		result = ft_strdup(va_arg(ptr, char *));
-		//result = string_type(ptr);
-	}
 	else if (c == 'p')
-	{
-		result = malloc(2 * sizeof(char));
-		result[0] = '%';
-		result[1] = 0;
-	}
+		result = hex_str(va_arg(ptr, unsigned long int), 0);
 	else if (c == 'd' || c == 'i')
-	{
 		result = ft_itoa(va_arg(ptr, int));
-	}
 	else if (c == 'u')
-	{
 		result = ft_utoa(va_arg(ptr, unsigned int));
-	}
-	else if (c == 'x' || c == 'X' || c == '%')
+	else if (c == 'x')
+		result = hex_str(va_arg(ptr, unsigned long int), 2);
+	else if (c == 'X')
+		result = hex_str(va_arg(ptr, unsigned long int), 1);
+	//else if (c == '%')
+	else
 	{
 		result = malloc(2 * sizeof(char));
 		result[0] = '%';
 		result[1] = 0;
 	}
-	else
+	/*else
 	{
 		//printf("\nentrou em nada!\n");
 		result = malloc (sizeof(char));
 		result[0] = 0;
-	}
+	}*/
 	return (result);
 }
 
