@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 00:38:11 by romachad          #+#    #+#             */
-/*   Updated: 2022/08/06 08:22:12 by romachad         ###   ########.fr       */
+/*   Updated: 2022/08/07 00:36:27 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,21 @@ static char	*read_value(char *str, size_t i, va_list ptr)
 		result = ft_strdup(va_arg(ptr, char *));
 		//result = string_type(ptr);
 	}
-	else if (c == 'p' || c == 'd' || c == 'i')
+	else if (c == 'p')
 	{
 		result = malloc(2 * sizeof(char));
 		result[0] = '%';
 		result[1] = 0;
 	}
-	else if (c == 'u' || c == 'x' || c == 'X' || c == '%')
+	else if (c == 'd' || c == 'i')
+	{
+		result = ft_itoa(va_arg(ptr, int));
+	}
+	else if (c == 'u')
+	{
+		result = ft_utoa(va_arg(ptr, unsigned int));
+	}
+	else if (c == 'x' || c == 'X' || c == '%')
 	{
 		result = malloc(2 * sizeof(char));
 		result[0] = '%';
