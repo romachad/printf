@@ -6,12 +6,12 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 08:01:03 by romachad          #+#    #+#             */
-/*   Updated: 2022/07/31 00:56:43 by romachad         ###   ########.fr       */
+/*   Updated: 2022/08/08 03:37:10 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-void	ft_putstr(char *s)
+void	ft_putstr_n(char *s, size_t size)
 {
-	write(1, s, ft_strlen(s));
+	write(1, s, size);
 }

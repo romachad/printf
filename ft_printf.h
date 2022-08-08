@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 00:32:19 by romachad          #+#    #+#             */
-/*   Updated: 2022/08/07 04:07:29 by romachad         ###   ########.fr       */
+/*   Updated: 2022/08/08 03:30:55 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 int	ft_printf(const char *s, ...);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *src);
-void	ft_putstr(char *s);
+void	ft_putstr_n(char *s, size_t size);
 int	ft_count_char(const char *s, char c);
 int	check_allowed(const char *s, int t_pct);
 char	*ft_strchr(const char *s, int c);
@@ -32,5 +32,6 @@ char	*char_type(va_list ptr);
 char	*ft_itoa(int n);
 char	*ft_utoa(unsigned int n);
 char	*hex_str(unsigned long int n, int flag);
+void	place_null(char *s);
 
 #endif
