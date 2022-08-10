@@ -6,15 +6,17 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 07:21:12 by romachad          #+#    #+#             */
-/*   Updated: 2022/08/08 05:00:29 by romachad         ###   ########.fr       */
+/*   Updated: 2022/08/10 03:16:47 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*char_type(va_list ptr)
+//char	*char_type(va_list ptr)
+void	char_type(va_list ptr)
 {
-	char	*str;
+	ft_putchar(va_arg(ptr, int));
+	/*char	*str;
 
 	str = malloc(1 + sizeof(char));
 	if (!str)
@@ -23,7 +25,7 @@ char	*char_type(va_list ptr)
 	if(str[0] == 0)
 		str[0] = 127;
 	str[1] = 0;
-	return (str);
+	return (str);*/
 }
 
 void	place_null(char *s)

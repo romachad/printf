@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/05 08:01:03 by romachad          #+#    #+#             */
-/*   Updated: 2022/07/31 00:56:43 by romachad         ###   ########.fr       */
+/*   Created: 2022/08/10 02:37:25 by romachad          #+#    #+#             */
+/*   Updated: 2022/08/10 02:38:08 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
-void	ft_putstr(char *s)
+void	ft_putchar(char c)
 {
-	write(1, s, ft_strlen(s));
+	write(1, &c, 1);
 }
