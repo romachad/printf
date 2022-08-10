@@ -1,7 +1,7 @@
 NAME := libftprintf.a
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
-LIB_SRC := ft_strdup.c ft_strlen.c ft_putstr.c ft_strchr.c ft_printf.c ft_count_char.c ft_check_allowed.c ft_strchr_n.c ft_substr.c ft_strjoin2.c ft_calloc.c char_type.c ft_itoa.c ft_utoa.c hex_str.c ft_putchar.c
+LIB_SRC := ft_strdup.c ft_strlen.c ft_putstr.c ft_strchr.c ft_printf.c ft_substr.c ft_strjoin2.c ft_calloc.c ft_itoa.c ft_utoa.c hex_str.c ft_putchar.c
 OBJ := ${LIB_SRC:.c=.o}
 
 all: $(NAME)
