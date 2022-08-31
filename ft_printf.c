@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 00:38:11 by romachad          #+#    #+#             */
-/*   Updated: 2022/08/10 03:51:59 by romachad         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:15:09 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	replace_value(char *str, size_t *i, va_list ptr, size_t p)
 		ft_putstr(variable);
 		*i = *i + ft_strlen(variable);
 	}
-	else if (!(variable) && str[*i + 1] == 's')
+	else if (!(variable) && str[p + 1] == 's')
 	{
 		ft_putstr("(null)");
 		*i += 6;

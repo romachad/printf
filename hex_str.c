@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 03:17:30 by romachad          #+#    #+#             */
-/*   Updated: 2022/08/08 07:04:39 by romachad         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:14:05 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static char	*get_hexnumber(unsigned long int n, int flag)
 	return (number);
 }
 
-void	clean_hex(char *s, int flag)
+static void	clean_hex(char *s, int flag)
 {
 	unsigned int	i;
 
