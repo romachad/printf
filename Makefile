@@ -1,22 +1,27 @@
-NAME := libftprintf.a
-CC := cc
-CFLAGS := -Wall -Wextra -Werror
-LIB_SRC := ft_strdup.c ft_strlen.c ft_putstr.c ft_strchr.c ft_printf.c ft_substr.c ft_strjoin2.c ft_calloc.c ft_itoa.c ft_utoa.c hex_str.c ft_putchar.c
-OBJ := ${LIB_SRC:.c=.o}
+NAME = libftprintf.a
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+LIB_SRC = ft_strdup ft_strlen ft_putstr ft_strchr ft_printf ft_substr ft_strjoin2 ft_calloc ft_itoa ft_utoa hex_str ft_putchar
+SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(LIB_SRC)))
+OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(LIB_SRC)))
+SRCS_DIR = srcs/
+OBJ_DIR = objs/
 
-all: $(NAME)
+all:
+	mkdir -p $(OBJ_DIR)
+	make $(NAME)
 
 $(NAME): $(OBJ)
 	ar -crs $@ $^
 
-%.o: %.c
-	$(CC) -c $^ $(CFLAGS)
+$(OBJ_DIR)%.o: $(SRCS_DIR)%.c
+	$(CC) -c $^ $(CFLAGS) -o $@
 
 fclean: clean
 	rm -f $(NAME)
 
 clean:
-	rm -f $(OBJ)
+	rm -rf $(OBJ_DIR)
 
 re: fclean all
 
